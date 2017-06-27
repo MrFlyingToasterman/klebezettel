@@ -84,7 +84,8 @@ export class HomePage {
         {
           text: 'Save',
           handler: data => {
-            console.log('Saved clicked');
+            console.log("Saved clicked >" + data.title + "<");
+            this.file.createFile(this.file.dataDirectory, data.title + ".txt", false);
           }
         }
       ]
@@ -97,8 +98,10 @@ itemSelected(item: string) {
 }
 
 readFiles() {
-  var Test = this.file.listDir(this.file.dataDirectory, "*");
-  console.log(Test);
+  this.file.listDir(this.file.dataDirectory, "").then(
+  (files) => {
+    console.log(">" + files + "<");
+  }).catch((err) => {console.log(">" + err + "<");});
 }
 
 
@@ -112,7 +115,7 @@ createFileAndWrite(text: string, filename: string) {
                 .catch(err => console.log('Couldnt create file'));
             }
             return this.writeToFile(text, filename);
-        }).catch(err => console.log('Directory doesnt exist'));
+        }).catch(err => console.log('Directory doesnt exist' + err));
     }
 
     writeToFile(text: string, filename: string) {
@@ -121,7 +124,7 @@ createFileAndWrite(text: string, filename: string) {
 
     someEventFunc() {
       // This is an example usage of the above functions
-      this.createFileAndWrite("Hello World - someEventFunc was called", "Testfile");
+      this.createFileAndWrite("Hello World - someEventFunc was called", "Testfile.txt");
     }
 
 
