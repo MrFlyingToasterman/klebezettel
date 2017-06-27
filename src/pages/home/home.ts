@@ -16,25 +16,7 @@ import { ActionSheetController } from 'ionic-angular';
 
 export class HomePage {
 
-  items = [
-    'Pokémon Yellow',
-    'Super Metroid',
-    'Mega Man X',
-    'The Legend of Zelda',
-    'Pac-Man',
-    'Super Mario World',
-    'Street Fighter II',
-    'Half Life',
-    'Final Fantasy VII',
-    'Star Fox',
-    'Tetris',
-    'Donkey Kong III',
-    'GoldenEye 007',
-    'Doom',
-    'Fallout',
-    'GTA',
-    'Halo'
-];
+  items = [];
 
   constructor(public navCtrl: NavController, public alertCtrl: AlertController, private file: File, public actionSheetCtrl: ActionSheetController) {
     this.readFiles();
@@ -100,8 +82,17 @@ itemSelected(item: string) {
 readFiles() {
   this.file.listDir(this.file.dataDirectory, "").then(
   (files) => {
-    console.log(">" + files + "<");
-  }).catch((err) => {console.log(">" + err + "<");});
+    for (let f of files) {
+      console.log("Files >" + f.name + "<");
+    }
+    var i2 = 0;
+    for (var i = 0; i < files.length; i++) {
+      if (files[i].name != "Documents" && files[i].name != "files") {
+        this.items[i2] = "" + files[i].name;
+        i2++;
+      }
+    }
+  }).catch((err) => {console.log("Errors >" + err + "<");});
 }
 
 
