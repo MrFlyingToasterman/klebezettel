@@ -2,7 +2,7 @@
   <ion-navbar color="dark">
     <ion-title>Notes</ion-title>
     <ion-buttons end>
-      <button ion-button icon-only color="royal" (click)="addNote()">
+      <button ion-button icon-only color="royal" (click)="someEventFunc()">
         <ion-icon name="md-add"></ion-icon>
       </button>
     </ion-buttons>
@@ -12,7 +12,7 @@
 <ion-content padding>
   <h2>Welcome to Klebezettel!</h2>
     <ion-list>
-    <button ion-item *ngFor="let item of items" (click)="itemSelected(item)" >
+    <button ion-item *ngFor="let item of items" (click)="itemSelected(item)" (press)="presentActionSheet()" >
       {{ item }}
     </button>
   </ion-list>
