@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+//Import für Dateioperationen; Schreiben; Lesen
+import { File } from '@ionic-native/file';
 
 @Component({
   selector: 'page-about',
@@ -7,7 +9,9 @@ import { NavController } from 'ionic-angular';
 })
 export class AboutPage {
 
-  constructor(public navCtrl: NavController) {
+  bytesfree = this.file.getFreeDiskSpace();
+
+  constructor(public navCtrl: NavController, private file: File) {
 
   }
 

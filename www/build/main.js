@@ -55817,6 +55817,7 @@ webpackEmptyContext.id = 98;
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_file__ = __webpack_require__(104);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AboutPage; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -55829,19 +55830,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
+//Import für Dateioperationen; Schreiben; Lesen
+
 var AboutPage = (function () {
-    function AboutPage(navCtrl) {
+    function AboutPage(navCtrl, file) {
         this.navCtrl = navCtrl;
+        this.file = file;
+        this.bytesfree = this.file.getFreeDiskSpace();
     }
     return AboutPage;
 }());
 AboutPage = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_6" /* Component */])({
-        selector: 'page-about',template:/*ion-inline-start:"/home/dmusiolik/Desktop/Ionic Framework/klebezettel/src/pages/about/about.html"*/'<ion-header>\n  <ion-navbar  color="dark">\n    <ion-title>\n      About\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n  <ion-slides pager>\n\n    <ion-slide style="background-color: grey">\n      <h2>Slide 1</h2>\n    </ion-slide>\n\n    <ion-slide style="background-color: grey">\n      <h2>Slide 2</h2>\n    </ion-slide>\n\n    <ion-slide style="background-color: grey">\n      <h2>Slide 3</h2>\n    </ion-slide>\n\n  </ion-slides>\n'/*ion-inline-end:"/home/dmusiolik/Desktop/Ionic Framework/klebezettel/src/pages/about/about.html"*/
+        selector: 'page-about',template:/*ion-inline-start:"/home/dmusiolik/Desktop/Ionic Framework/klebezettel/src/pages/about/about.html"*/'<ion-header>\n  <ion-navbar  color="dark">\n    <ion-title>\n      About\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n  <ion-slides pager>\n\n    <ion-slide style="background-color: grey">\n      <h2>Slide 1</h2>\n      <p>Verfügbarer Speicherplatz: {{ bytesfree }}</p>\n    </ion-slide>\n\n    <ion-slide style="background-color: grey">\n      <h2>Slide 2</h2>\n    </ion-slide>\n\n    <ion-slide style="background-color: grey">\n      <h2>Slide 3</h2>\n    </ion-slide>\n\n  </ion-slides>\n'/*ion-inline-end:"/home/dmusiolik/Desktop/Ionic Framework/klebezettel/src/pages/about/about.html"*/
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */]])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__ionic_native_file__["a" /* File */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__ionic_native_file__["a" /* File */]) === "function" && _b || Object])
 ], AboutPage);
 
+var _a, _b;
 //# sourceMappingURL=about.js.map
 
 /***/ }),
@@ -55929,6 +55935,7 @@ var HomePage = (function () {
             'GTA',
             'Halo'
         ];
+        this.readFiles();
     }
     HomePage.prototype.presentActionSheet = function () {
         var actionSheet = this.actionSheetCtrl.create({
@@ -55983,6 +55990,10 @@ var HomePage = (function () {
     HomePage.prototype.itemSelected = function (item) {
         console.log("Selected Item", item);
     };
+    HomePage.prototype.readFiles = function () {
+        var Test = this.file.listDir(this.file.dataDirectory, "*");
+        console.log(Test);
+    };
     HomePage.prototype.createFileAndWrite = function (text, filename) {
         var _this = this;
         this.file.checkFile(this.file.dataDirectory, filename)
@@ -56009,10 +56020,9 @@ HomePage = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_6" /* Component */])({
         selector: 'page-home',template:/*ion-inline-start:"/home/dmusiolik/Desktop/Ionic Framework/klebezettel/src/pages/home/home.html"*/'<ion-header>\n  <ion-navbar color="dark">\n    <ion-title>Notes</ion-title>\n    <ion-buttons end>\n      <button ion-button icon-only color="royal" (click)="someEventFunc()">\n        <ion-icon name="md-add"></ion-icon>\n      </button>\n    </ion-buttons>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <h2>Welcome to Klebezettel!</h2>\n    <ion-list>\n    <button ion-item *ngFor="let item of items" (click)="itemSelected(item)" (press)="presentActionSheet()" >\n      {{ item }}\n    </button>\n  </ion-list>\n\n</ion-content>\n'/*ion-inline-end:"/home/dmusiolik/Desktop/Ionic Framework/klebezettel/src/pages/home/home.html"*/
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* AlertController */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__ionic_native_file__["a" /* File */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__ionic_native_file__["a" /* File */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* ActionSheetController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* ActionSheetController */]) === "function" && _d || Object])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* AlertController */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_file__["a" /* File */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* ActionSheetController */]])
 ], HomePage);
 
-var _a, _b, _c, _d;
 //# sourceMappingURL=home.js.map
 
 /***/ }),
