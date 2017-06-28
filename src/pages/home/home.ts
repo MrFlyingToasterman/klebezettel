@@ -7,7 +7,10 @@ import { AlertController } from 'ionic-angular';
 import { File } from '@ionic-native/file';
 //Import für Popup Menu
 import { ActionSheetController } from 'ionic-angular';
-
+//Import für Modal Popup
+import { ModalController } from 'ionic-angular';
+//Import für zugriff auf modal-content
+import { ModalContentPage } from "../modal-content/modal-content"
 
 @Component({
   selector: 'page-home',
@@ -18,7 +21,7 @@ export class HomePage {
 
   items = [];
 
-  constructor(public navCtrl: NavController, public alertCtrl: AlertController, private file: File, public actionSheetCtrl: ActionSheetController) {
+  constructor(public navCtrl: NavController, public alertCtrl: AlertController, private file: File, public actionSheetCtrl: ActionSheetController, public modalCtrl: ModalController) {
     this.readFiles();
   }
 
@@ -56,7 +59,8 @@ export class HomePage {
       inputs: [
         {
           name: 'title',
-          placeholder: 'Title'
+          placeholder: 'Title',
+          id: 'inputField0'
         },
       ],
       buttons: [
@@ -76,12 +80,21 @@ export class HomePage {
         }
       ]
     });
-    prompt.present();
+    prompt.present().then( () => {
+      document.getElementById('inputField0').focus();
+    });
   }
 
+//Print selected item and run Modal Popup
 itemSelected(item: string) {
     console.log("[INFO] Selected Item >" + item + "<");
+    let modal = this.modalCtrl.create(ModalContentPage, item);
+    modal.present().catch((err) => {
+      console.log("[WARN] " + err);
+    });
 }
+
+
 
 readFiles() {
   console.log("[INFO] Starting refresh");
