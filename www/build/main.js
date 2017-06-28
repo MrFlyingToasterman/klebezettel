@@ -55913,7 +55913,8 @@ var HomePage = (function () {
         this.items = [];
         this.readFiles();
     }
-    HomePage.prototype.presentActionSheet = function () {
+    HomePage.prototype.presentActionSheet = function (item) {
+        var _this = this;
         var actionSheet = this.actionSheetCtrl.create({
             title: 'Modify your note',
             buttons: [
@@ -55922,14 +55923,17 @@ var HomePage = (function () {
                     text: 'Delete',
                     role: 'destructive',
                     handler: function () {
-                        console.log('Destructive clicked');
+                        console.log("[WARN] Destructive clicked for: >" + item + "< ");
+                        _this.file.removeFile(_this.file.dataDirectory, item);
+                        console.log("[WARN] Removed: >" + item + "< ");
+                        _this.readFiles();
                     }
                 }, {
                     icon: 'close',
                     text: 'Cancel',
                     role: 'cancel',
                     handler: function () {
-                        console.log('Cancel clicked');
+                        console.log('[INFO] Cancel clicked');
                     }
                 }
             ]
@@ -55951,14 +55955,15 @@ var HomePage = (function () {
                 {
                     text: 'Cancel',
                     handler: function (data) {
-                        console.log('Cancel clicked');
+                        console.log('[INFO] Cancel clicked');
                     }
                 },
                 {
                     text: 'Save',
                     handler: function (data) {
-                        console.log("Saved clicked >" + data.title + "<");
+                        console.log("[INFO] Saved clicked >" + data.title + "<");
                         _this.file.createFile(_this.file.dataDirectory, data.title + ".txt", false);
+                        _this.readFiles();
                     }
                 }
             ]
@@ -55966,15 +55971,18 @@ var HomePage = (function () {
         prompt.present();
     };
     HomePage.prototype.itemSelected = function (item) {
-        console.log("Selected Item", item);
+        console.log("[INFO] Selected Item >" + item + "<");
     };
     HomePage.prototype.readFiles = function () {
         var _this = this;
+        console.log("[INFO] Starting refresh");
         this.file.listDir(this.file.dataDirectory, "").then(function (files) {
             for (var _i = 0, files_1 = files; _i < files_1.length; _i++) {
                 var f = files_1[_i];
-                console.log("Files >" + f.name + "<");
+                console.log("[INFO] Files >" + f.name + "<");
             }
+            //Clean Array
+            _this.items = ['', ''];
             var i2 = 0;
             for (var i = 0; i < files.length; i++) {
                 if (files[i].name != "Documents" && files[i].name != "files") {
@@ -55982,7 +55990,7 @@ var HomePage = (function () {
                     i2++;
                 }
             }
-        }).catch(function (err) { console.log("Errors >" + err + "<"); });
+        }).catch(function (err) { console.log("[WARN] Errors >" + err + "<"); });
     };
     HomePage.prototype.createFileAndWrite = function (text, filename) {
         var _this = this;
@@ -56008,7 +56016,7 @@ var HomePage = (function () {
 }());
 HomePage = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_6" /* Component */])({
-        selector: 'page-home',template:/*ion-inline-start:"/home/dmusiolik/Desktop/Ionic Framework/klebezettel/src/pages/home/home.html"*/'<ion-header>\n  <ion-navbar color="dark">\n    <ion-title>Notes</ion-title>\n    <ion-buttons end>\n      <button ion-button icon-only color="royal" (click)="addNote()">\n        <ion-icon name="md-add"></ion-icon>\n      </button>\n    </ion-buttons>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <h2>Welcome to Klebezettel!</h2>\n    <ion-list>\n    <button ion-item *ngFor="let item of items" (click)="itemSelected(item)" (press)="presentActionSheet()" >\n      {{ item }}\n    </button>\n  </ion-list>\n\n</ion-content>\n'/*ion-inline-end:"/home/dmusiolik/Desktop/Ionic Framework/klebezettel/src/pages/home/home.html"*/
+        selector: 'page-home',template:/*ion-inline-start:"/home/dmusiolik/Desktop/Ionic Framework/klebezettel/src/pages/home/home.html"*/'<ion-header>\n  <ion-navbar color="dark">\n    <ion-title>Notes</ion-title>\n    <ion-buttons end>\n      <button ion-button icon-only color="royal" (click)="addNote()">\n        <ion-icon name="md-add"></ion-icon>\n      </button>\n    </ion-buttons>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <h2>Welcome to Klebezettel!</h2>\n    <ion-list>\n    <button ion-item *ngFor="let item of items" (click)="itemSelected(item)" (press)="presentActionSheet(item)" >\n      {{ item }}\n    </button>\n  </ion-list>\n\n</ion-content>\n'/*ion-inline-end:"/home/dmusiolik/Desktop/Ionic Framework/klebezettel/src/pages/home/home.html"*/
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* AlertController */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_file__["a" /* File */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* ActionSheetController */]])
 ], HomePage);

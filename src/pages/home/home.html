@@ -12,7 +12,7 @@
 <ion-content padding>
   <h2>Welcome to Klebezettel!</h2>
     <ion-list>
-    <button ion-item *ngFor="let item of items" (click)="itemSelected(item)" (press)="presentActionSheet()" >
+    <button ion-item *ngFor="let item of items" (click)="itemSelected(item)" (press)="presentActionSheet(item)" >
       {{ item }}
     </button>
   </ion-list>

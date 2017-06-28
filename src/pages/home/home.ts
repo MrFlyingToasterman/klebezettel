@@ -22,7 +22,7 @@ export class HomePage {
     this.readFiles();
   }
 
-  presentActionSheet() {
+  presentActionSheet(item: string) {
    let actionSheet = this.actionSheetCtrl.create({
      title: 'Modify your note',
      buttons: [
@@ -31,14 +31,17 @@ export class HomePage {
          text: 'Delete',
          role: 'destructive',
          handler: () => {
-           console.log('Destructive clicked');
+           console.log("[WARN] Destructive clicked for: >" + item + "< ");
+           this.file.removeFile(this.file.dataDirectory, item);
+           console.log("[WARN] Removed: >" + item + "< ");
+           this.readFiles();
          }
        },{
          icon: 'close',
          text: 'Cancel',
          role: 'cancel',
          handler: () => {
-           console.log('Cancel clicked');
+           console.log('[INFO] Cancel clicked');
          }
        }
      ]
@@ -60,14 +63,15 @@ export class HomePage {
         {
           text: 'Cancel',
           handler: data => {
-            console.log('Cancel clicked');
+            console.log('[INFO] Cancel clicked');
           }
         },
         {
           text: 'Save',
           handler: data => {
-            console.log("Saved clicked >" + data.title + "<");
+            console.log("[INFO] Saved clicked >" + data.title + "<");
             this.file.createFile(this.file.dataDirectory, data.title + ".txt", false);
+            this.readFiles();
           }
         }
       ]
@@ -76,15 +80,18 @@ export class HomePage {
   }
 
 itemSelected(item: string) {
-    console.log("Selected Item", item);
+    console.log("[INFO] Selected Item >" + item + "<");
 }
 
 readFiles() {
+  console.log("[INFO] Starting refresh");
   this.file.listDir(this.file.dataDirectory, "").then(
   (files) => {
     for (let f of files) {
-      console.log("Files >" + f.name + "<");
+      console.log("[INFO] Files >" + f.name + "<");
     }
+    //Clean Array
+    this.items = [ '', '' ];
     var i2 = 0;
     for (var i = 0; i < files.length; i++) {
       if (files[i].name != "Documents" && files[i].name != "files") {
@@ -92,7 +99,7 @@ readFiles() {
         i2++;
       }
     }
-  }).catch((err) => {console.log("Errors >" + err + "<");});
+  }).catch((err) => {console.log("[WARN] Errors >" + err + "<");});
 }
 
 
