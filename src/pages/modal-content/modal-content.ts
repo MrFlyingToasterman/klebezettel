@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+
 //Import für Modal Popup
 import { ViewController } from 'ionic-angular';
+//Import für Dateioperationen; Schreiben; Lesen
+import { File } from '@ionic-native/file';
 
 /**
  * Generated class for the ModalContentPage page.
@@ -17,14 +20,23 @@ import { ViewController } from 'ionic-angular';
 export class ModalContentPage {
 
   item: string = "";
+  textboxContent;//: string = "";
 
-  constructor(public navCtrl: NavController, public params: NavParams, public viewCtrl: ViewController) {
+  constructor(public navCtrl: NavController, public params: NavParams, public viewCtrl: ViewController, private file: File) {
     this.item = this.params.get('filename');
-    console.log("Opening File: >" + this.item + "<");
+    console.log("[INFO] Opening File: >" + this.item + "<");
+    //Read Text from File
+    this.file.readAsText(this.file.dataDirectory, this.item).then((content)=> {
+      this.textboxContent = content;
+    })
+    //Set focus on ion-textarea
+    //document.getElementById('thoughtsBox').focus(); //Currently not working, idk y; returns null
   }
 
   dismiss() {
-      this.viewCtrl.dismiss();
+    console.log("[INFO] Writing Stuff to >" +  this.item + "<");
+    this.file.writeExistingFile(this.file.dataDirectory, this.item, "Test!!!!!");
+    this.viewCtrl.dismiss();
   }
 
 }

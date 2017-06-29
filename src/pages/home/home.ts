@@ -87,7 +87,7 @@ export class HomePage {
 
 //Print selected item and run Modal Popup
 itemSelected(item: string) {
-    console.log("[INFO] Selected Item >" + item + "<");
+    //console.log("[INFO] Selected Item >" + item + "<");
     let modal = this.modalCtrl.create(ModalContentPage, item);
     modal.present().catch((err) => {
       console.log("[WARN] " + err);
@@ -112,7 +112,10 @@ readFiles() {
         i2++;
       }
     }
-  }).catch((err) => {console.log("[WARN] Errors >" + err + "<");});
+  }).catch((err) => {
+    console.log("[WARN] Errors >" + err + "<");
+    //this.readFiles(); //On some slow devices this will need a kick
+  });
 }
 
 
@@ -123,10 +126,10 @@ createFileAndWrite(text: string, filename: string) {
             if(!doesExist) {
                 return this.file.createFile(this.file.dataDirectory, filename, false)
                 .then(FileEntry => this.writeToFile(text, filename))
-                .catch(err => console.log('Couldnt create file'));
+                .catch(err => console.log('[WARN] Couldnt create file'));
             }
             return this.writeToFile(text, filename);
-        }).catch(err => console.log('Directory doesnt exist' + err));
+        }).catch(err => console.log('[WARN] Directory doesnt exist' + err));
     }
 
     writeToFile(text: string, filename: string) {

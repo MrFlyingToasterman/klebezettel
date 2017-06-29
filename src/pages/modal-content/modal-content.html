@@ -1,16 +1,15 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>
-      Description
-    </ion-title>
+    <ion-title>Edit Note: {{ item }}</ion-title>
     <ion-buttons start>
       <button ion-button (click)="dismiss()">
-        <ion-icon name="md-close"></ion-icon>
+        <ion-icon name="md-download"></ion-icon>
       </button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 <ion-content>
-        <h2>Choosen Item: {{ item }}</h2>
-        <p></p>
+        <!-- <h2>Choosen Item: {{ item }}</h2> -->
+        <p>Test : {{ textboxContent }}</p>
+        <ion-textarea placeholder="Enter your thoughts" id="thoughtsBox"></ion-textarea>#
 </ion-content>
