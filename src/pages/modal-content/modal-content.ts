@@ -20,14 +20,14 @@ import { File } from '@ionic-native/file';
 export class ModalContentPage {
 
   item: string = "";
-  textboxContent;//: string = "";
+  value: string = "";
 
   constructor(public navCtrl: NavController, public params: NavParams, public viewCtrl: ViewController, private file: File) {
     this.item = this.params.get('filename');
     console.log("[INFO] Opening File: >" + this.item + "<");
     //Read Text from File
     this.file.readAsText(this.file.dataDirectory, this.item).then((content)=> {
-      this.textboxContent = content;
+      this.value = content;
     })
     //Set focus on ion-textarea
     //document.getElementById('thoughtsBox').focus(); //Currently not working, idk y; returns null

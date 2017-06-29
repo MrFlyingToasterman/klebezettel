@@ -56860,11 +56860,12 @@ var ModalContentPage = (function () {
         this.viewCtrl = viewCtrl;
         this.file = file;
         this.item = "";
+        this.value = "";
         this.item = this.params.get('filename');
         console.log("[INFO] Opening File: >" + this.item + "<");
         //Read Text from File
         this.file.readAsText(this.file.dataDirectory, this.item).then(function (content) {
-            _this.textboxContent = content;
+            _this.value = content;
         });
         //Set focus on ion-textarea
         //document.getElementById('thoughtsBox').focus(); //Currently not working, idk y; returns null
@@ -56879,7 +56880,7 @@ var ModalContentPage = (function () {
 ModalContentPage = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* IonicPage */])(),
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_6" /* Component */])({
-        selector: 'page-modal-content',template:/*ion-inline-start:"/home/dmusiolik/Desktop/Ionic Framework/klebezettel/src/pages/modal-content/modal-content.html"*/'<ion-header>\n  <ion-toolbar>\n    <ion-title>Edit Note: {{ item }}</ion-title>\n    <ion-buttons start>\n      <button ion-button (click)="dismiss()">\n        <ion-icon name="md-download"></ion-icon>\n      </button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n<ion-content>\n        <!-- <h2>Choosen Item: {{ item }}</h2> -->\n        <p>Test : {{ textboxContent }}</p>\n        <ion-textarea placeholder="Enter your thoughts" id="thoughtsBox"></ion-textarea>#\n</ion-content>\n'/*ion-inline-end:"/home/dmusiolik/Desktop/Ionic Framework/klebezettel/src/pages/modal-content/modal-content.html"*/,
+        selector: 'page-modal-content',template:/*ion-inline-start:"/home/dmusiolik/Desktop/Ionic Framework/klebezettel/src/pages/modal-content/modal-content.html"*/'<ion-header>\n  <ion-toolbar>\n    <ion-title>Edit Note: {{ item }}</ion-title>\n    <ion-buttons start>\n      <button ion-button (click)="dismiss()">\n        <ion-icon name="md-download"></ion-icon>\n      </button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n<ion-content>\n        <!-- <h2>Choosen Item: {{ item }}</h2> -->\n        <!-- <p>Test : {{ value }}</p> -->\n        <ion-textarea placeholder="Enter your thoughts" id="thoughtsBox" type="text" [(ngModel)]="value"></ion-textarea>\n</ion-content>\n'/*ion-inline-end:"/home/dmusiolik/Desktop/Ionic Framework/klebezettel/src/pages/modal-content/modal-content.html"*/,
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* ViewController */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_file__["a" /* File */]])
 ], ModalContentPage);
