@@ -20,6 +20,7 @@ import { File } from '@ionic-native/file';
 export class ModalContentPage {
 
   item: string = "";
+  inputValue:string;
   value: string = "";
 
   constructor(public navCtrl: NavController, public params: NavParams, public viewCtrl: ViewController, private file: File) {
@@ -35,7 +36,8 @@ export class ModalContentPage {
 
   dismiss() {
     console.log("[INFO] Writing Stuff to >" +  this.item + "<");
-    this.file.writeExistingFile(this.file.dataDirectory, this.item, "Test!!!!!");
+    console.log("[INFO] Content to save: >" + this.inputValue + "<");
+    this.file.writeExistingFile(this.file.dataDirectory, this.item, this.inputValue);
     this.viewCtrl.dismiss();
   }
 
