@@ -48,7 +48,7 @@ export class ModalContentPage {
   presentToast() {
     let toast = this.toastCtrl.create({
       message: 'Saved note',
-      duration: 3000
+      duration: 1000
     });
     toast.present();
   }
