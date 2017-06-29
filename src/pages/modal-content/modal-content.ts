@@ -5,6 +5,9 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ViewController } from 'ionic-angular';
 //Import für Dateioperationen; Schreiben; Lesen
 import { File } from '@ionic-native/file';
+//Import für Toast
+import { ToastController } from 'ionic-angular';
+
 
 /**
  * Generated class for the ModalContentPage page.
@@ -23,7 +26,7 @@ export class ModalContentPage {
   inputValue:string;
   value: string = "";
 
-  constructor(public navCtrl: NavController, public params: NavParams, public viewCtrl: ViewController, private file: File) {
+  constructor(public navCtrl: NavController, public params: NavParams, public viewCtrl: ViewController, private file: File, public toastCtrl: ToastController) {
     this.item = this.params.get('filename');
     console.log("[INFO] Opening File: >" + this.item + "<");
     //Read Text from File
@@ -38,7 +41,16 @@ export class ModalContentPage {
     console.log("[INFO] Writing Stuff to >" +  this.item + "<");
     console.log("[INFO] Content to save: >" + this.inputValue + "<");
     this.file.writeExistingFile(this.file.dataDirectory, this.item, this.inputValue);
+    this.presentToast();
     this.viewCtrl.dismiss();
+  }
+
+  presentToast() {
+    let toast = this.toastCtrl.create({
+      message: 'Saved note',
+      duration: 3000
+    });
+    toast.present();
   }
 
 }
