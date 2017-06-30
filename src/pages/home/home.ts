@@ -114,7 +114,9 @@ readFiles() {
     }
   }).catch((err) => {
     console.log("[WARN] Errors >" + err + "<");
-    //this.readFiles(); //On some slow devices this will need a kick
+    setTimeout(() => {
+      this.readFiles(); //On some slow devices this will need a kick
+    }, 1000);
   });
 }
 
