@@ -7,6 +7,10 @@ import { NavController } from 'ionic-angular';
 })
 export class AboutPage {
 
+//Hardcoded in the Moment!
+lang:string = "en";
+fontsize = 20;
+
   constructor(public navCtrl: NavController) {
 
   }

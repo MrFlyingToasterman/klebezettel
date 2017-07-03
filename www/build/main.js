@@ -56934,12 +56934,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var AboutPage = (function () {
     function AboutPage(navCtrl) {
         this.navCtrl = navCtrl;
+        //Hardcoded in the Moment!
+        this.lang = "en";
+        this.fontsize = 20;
     }
     return AboutPage;
 }());
 AboutPage = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_6" /* Component */])({
-        selector: 'page-about',template:/*ion-inline-start:"/home/dmusiolik/Desktop/Ionic Framework/klebezettel/src/pages/about/about.html"*/'<ion-header>\n  <ion-navbar  color="dark">\n    <ion-title>\n      About\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n  <ion-slides pager>\n\n    <ion-slide style="background-color: grey">\n      <h2>Slide 1</h2>\n      <p>Maybe i put some Favorits here..</p>\n    </ion-slide>\n\n    <ion-slide style="background-color: grey">\n      <h2>Slide 2</h2>\n    </ion-slide>\n\n    <ion-slide style="background-color: grey">\n      <h2>Slide 3</h2>\n    </ion-slide>\n\n  </ion-slides>\n'/*ion-inline-end:"/home/dmusiolik/Desktop/Ionic Framework/klebezettel/src/pages/about/about.html"*/
+        selector: 'page-about',template:/*ion-inline-start:"/home/dmusiolik/Desktop/Ionic Framework/klebezettel/src/pages/about/about.html"*/'<ion-header>\n  <ion-navbar  color="dark">\n    <ion-title>\n      Settings\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n<ion-content padding>\n<ion-item>\n    <ion-label>Language</ion-label>\n    <ion-select [(ngModel)]="lang">\n      <ion-option value="en">English</ion-option>\n      <ion-option value="de">Deutsch</ion-option>\n    </ion-select>\n  </ion-item>\n  <ion-item>\n      <ion-label>Font Size</ion-label>\n      <ion-select [(ngModel)]="fontsize">\n        <ion-option value="30">30 pt</ion-option>\n        <ion-option value="20">20 pt</ion-option>\n        <ion-option value="10">10 pt</ion-option>\n      </ion-select>\n    </ion-item>\n</ion-content>\n'/*ion-inline-end:"/home/dmusiolik/Desktop/Ionic Framework/klebezettel/src/pages/about/about.html"*/
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */]])
 ], AboutPage);
@@ -56973,7 +56976,7 @@ var ContactPage = (function () {
 }());
 ContactPage = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_6" /* Component */])({
-        selector: 'page-contact',template:/*ion-inline-start:"/home/dmusiolik/Desktop/Ionic Framework/klebezettel/src/pages/contact/contact.html"*/'<ion-header>\n  <ion-navbar  color="dark">\n    <ion-title>\n      Contact\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content>\n  <ion-list>\n    <ion-list-header>Fork me on GitHub</ion-list-header>\n    <ion-item>\n      <ion-icon name="logo-github" item-left></ion-icon>\n      GitHub.com/MrFlyingToasterman\n    </ion-item>\n  </ion-list>\n</ion-content>\n'/*ion-inline-end:"/home/dmusiolik/Desktop/Ionic Framework/klebezettel/src/pages/contact/contact.html"*/
+        selector: 'page-contact',template:/*ion-inline-start:"/home/dmusiolik/Desktop/Ionic Framework/klebezettel/src/pages/contact/contact.html"*/'<ion-header>\n  <ion-navbar  color="dark">\n    <ion-title>\n      Contact\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content>\n  <ion-list>\n    <ion-item>\n    <ion-icon name="md-bowtie" item-left></ion-icon>\n      Darius Musiolik\n    </ion-item>\n    <ion-item>\n    <ion-icon name="md-attach" item-left></ion-icon>\n      MrFlyingToasterman@yahoo.de\n    </ion-item>\n    <ion-item>\n      <ion-icon name="logo-github" item-left></ion-icon>\n      Source: <a href="https://www.GitHub.com/MrFlyingToasterman/klebezettel">Klebezettel</a>\n    </ion-item>\n  </ion-list>\n</ion-content>\n'/*ion-inline-end:"/home/dmusiolik/Desktop/Ionic Framework/klebezettel/src/pages/contact/contact.html"*/
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */]])
 ], ContactPage);
@@ -57137,7 +57140,7 @@ var HomePage = (function () {
 }());
 HomePage = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_6" /* Component */])({
-        selector: 'page-home',template:/*ion-inline-start:"/home/dmusiolik/Desktop/Ionic Framework/klebezettel/src/pages/home/home.html"*/'<ion-header>\n  <ion-navbar color="dark">\n    <ion-title>Notes</ion-title>\n    <ion-buttons end>\n      <button ion-button icon-only color="royal" (click)="addNote()">\n        <ion-icon name="md-add"></ion-icon>\n      </button>\n    </ion-buttons>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <h2>Welcome to Klebezettel!</h2>\n    <ion-list>\n    <button ion-item *ngFor="let item of items" (click)="itemSelected({filename: item})" (press)="presentActionSheet(item)" >\n      {{ item }}\n    </button>\n  </ion-list>\n\n</ion-content>\n'/*ion-inline-end:"/home/dmusiolik/Desktop/Ionic Framework/klebezettel/src/pages/home/home.html"*/
+        selector: 'page-home',template:/*ion-inline-start:"/home/dmusiolik/Desktop/Ionic Framework/klebezettel/src/pages/home/home.html"*/'<ion-header>\n  <ion-navbar color="dark">\n    <ion-title>Notes</ion-title>\n    <ion-buttons end>\n      <button ion-button icon-only color="royal" (click)="addNote()">\n        <ion-icon name="md-add"></ion-icon>\n      </button>\n    </ion-buttons>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <h2>Welcome to Klebezettel!</h2>\n    <ion-list>\n    <button ion-item *ngFor="let item of items" (click)="itemSelected({filename: item})" (press)="presentActionSheet(item)" >\n      {{ item }}\n    </button>\n  </ion-list>\n</ion-content>\n'/*ion-inline-end:"/home/dmusiolik/Desktop/Ionic Framework/klebezettel/src/pages/home/home.html"*/
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* AlertController */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_file__["a" /* File */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* ActionSheetController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* ModalController */]])
 ], HomePage);
@@ -57176,7 +57179,7 @@ var TabsPage = (function () {
     return TabsPage;
 }());
 TabsPage = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_6" /* Component */])({template:/*ion-inline-start:"/home/dmusiolik/Desktop/Ionic Framework/klebezettel/src/pages/tabs/tabs.html"*/'<ion-tabs color="dark">\n  <ion-tab [root]="tab1Root" tabTitle="Home" tabIcon="home"></ion-tab>\n  <ion-tab [root]="tab2Root" tabTitle="About" tabIcon="information-circle"></ion-tab>\n  <ion-tab [root]="tab3Root" tabTitle="Contact" tabIcon="contacts"></ion-tab>\n</ion-tabs>\n'/*ion-inline-end:"/home/dmusiolik/Desktop/Ionic Framework/klebezettel/src/pages/tabs/tabs.html"*/
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_6" /* Component */])({template:/*ion-inline-start:"/home/dmusiolik/Desktop/Ionic Framework/klebezettel/src/pages/tabs/tabs.html"*/'<ion-tabs color="dark">\n  <ion-tab [root]="tab1Root" tabTitle="Home" tabIcon="home"></ion-tab>\n  <ion-tab [root]="tab2Root" tabTitle="Settings" tabIcon="md-settings"></ion-tab>\n  <ion-tab [root]="tab3Root" tabTitle="Contact" tabIcon="contacts"></ion-tab>\n</ion-tabs>\n'/*ion-inline-end:"/home/dmusiolik/Desktop/Ionic Framework/klebezettel/src/pages/tabs/tabs.html"*/
     }),
     __metadata("design:paramtypes", [])
 ], TabsPage);

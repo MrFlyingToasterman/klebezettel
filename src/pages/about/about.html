@@ -1,24 +1,24 @@
 <ion-header>
   <ion-navbar  color="dark">
     <ion-title>
-      About
+      Settings
     </ion-title>
   </ion-navbar>
 </ion-header>
-
-  <ion-slides pager>
-
-    <ion-slide style="background-color: grey">
-      <h2>Slide 1</h2>
-      <p>Maybe i put some Favorits here..</p>
-    </ion-slide>
-
-    <ion-slide style="background-color: grey">
-      <h2>Slide 2</h2>
-    </ion-slide>
-
-    <ion-slide style="background-color: grey">
-      <h2>Slide 3</h2>
-    </ion-slide>
-
-  </ion-slides>
+<ion-content padding>
+<ion-item>
+    <ion-label>Language</ion-label>
+    <ion-select [(ngModel)]="lang">
+      <ion-option value="en">English</ion-option>
+      <ion-option value="de">Deutsch</ion-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+      <ion-label>Font Size</ion-label>
+      <ion-select [(ngModel)]="fontsize">
+        <ion-option value="30">30 pt</ion-option>
+        <ion-option value="20">20 pt</ion-option>
+        <ion-option value="10">10 pt</ion-option>
+      </ion-select>
+    </ion-item>
+</ion-content>
