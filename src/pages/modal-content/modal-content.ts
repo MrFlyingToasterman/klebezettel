@@ -7,6 +7,8 @@ import { ViewController } from 'ionic-angular';
 import { File } from '@ionic-native/file';
 //Import für Toast
 import { ToastController } from 'ionic-angular';
+//Import für SQL
+import { Storage } from '@ionic/storage';
 
 
 /**
@@ -25,16 +27,21 @@ export class ModalContentPage {
   item: string = "";
   inputValue:string;
   value: string = "";
+  fontsize:string = "";
 
-  constructor(public navCtrl: NavController, public params: NavParams, public viewCtrl: ViewController, private file: File, public toastCtrl: ToastController) {
-    this.item = this.params.get('filename');
+  constructor(public navCtrl: NavController, public params: NavParams, public viewCtrl: ViewController, private file: File, public toastCtrl: ToastController, private storage: Storage) {
+    //Read DB and get fontsize
+    storage.get("fontsize").then((val) => {
+      this.fontsize = val;
+      console.log("[INFO] DB loaded fontsize");
+    });
+    this.item = this.params.get("filename");
     console.log("[INFO] Opening File: >" + this.item + "<");
     //Read Text from File
     this.file.readAsText(this.file.dataDirectory, this.item).then((content)=> {
       this.value = content;
     })
-    //Set focus on ion-textarea
-    //document.getElementById('thoughtsBox').focus(); //Currently not working, idk y; returns null
+
   }
 
   dismiss() {

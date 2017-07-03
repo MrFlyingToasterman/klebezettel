@@ -11,6 +11,8 @@ import { ActionSheetController } from 'ionic-angular';
 import { ModalController } from 'ionic-angular';
 //Import für zugriff auf modal-content
 import { ModalContentPage } from "../modal-content/modal-content"
+//Import für SQL
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'page-home',
@@ -21,7 +23,18 @@ export class HomePage {
 
   items = [];
 
-  constructor(public navCtrl: NavController, public alertCtrl: AlertController, private file: File, public actionSheetCtrl: ActionSheetController, public modalCtrl: ModalController) {
+  constructor(public navCtrl: NavController, public alertCtrl: AlertController, private file: File, public actionSheetCtrl: ActionSheetController, public modalCtrl: ModalController, private storage: Storage) {
+    //Initial Setup for DB
+    storage.get("initialsetup").then((val) => {
+      if (val == null) {
+        console.log("[INFO] INITIAL SETUP! Setting up Database!");
+        //Writing to Database
+        storage.set("initialsetup", "1");
+        storage.set("lang", "en");
+        storage.set("fontsize", "20");
+      }
+    });
+
     this.readFiles();
   }
 
