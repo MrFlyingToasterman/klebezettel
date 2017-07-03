@@ -56892,7 +56892,7 @@ var ModalContentPage = (function () {
 ModalContentPage = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* IonicPage */])(),
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_6" /* Component */])({
-        selector: 'page-modal-content',template:/*ion-inline-start:"/home/dmusiolik/Desktop/Ionic Framework/klebezettel/src/pages/modal-content/modal-content.html"*/'<ion-header>\n  <ion-toolbar>\n    <ion-title>Edit Note: {{ item }}</ion-title>\n    <ion-buttons start>\n      <button ion-button (click)="dismiss()">\n        <ion-icon name="md-download"></ion-icon>\n      </button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n<ion-content>\n        <ion-textarea placeholder="Enter your thoughts" id="thoughtsBox" type="text" [(ngModel)]="value" [(ngModel)]="inputValue" rows="999"></ion-textarea>\n</ion-content>\n'/*ion-inline-end:"/home/dmusiolik/Desktop/Ionic Framework/klebezettel/src/pages/modal-content/modal-content.html"*/,
+        selector: 'page-modal-content',template:/*ion-inline-start:"/home/dmusiolik/Desktop/Ionic Framework/klebezettel/src/pages/modal-content/modal-content.html"*/'<ion-header>\n  <ion-toolbar>\n    <ion-title>Edit Note: {{ item }}</ion-title>\n    <ion-buttons start>\n      <button ion-button (click)="dismiss()">\n        <ion-icon name="md-download"></ion-icon>\n      </button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n<ion-content>\n        <textarea placeholder="Enter your thoughts" id="thoughtsBox" [(ngModel)]="value" [(ngModel)]="inputValue" style="width: 100%; height: 100%; font-size: 20px; position: relative; bottom: 0px;"></textarea>\n</ion-content>\n'/*ion-inline-end:"/home/dmusiolik/Desktop/Ionic Framework/klebezettel/src/pages/modal-content/modal-content.html"*/,
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* ViewController */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_file__["a" /* File */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* ToastController */]])
 ], ModalContentPage);
@@ -57108,7 +57108,9 @@ var HomePage = (function () {
             }
         }).catch(function (err) {
             console.log("[WARN] Errors >" + err + "<");
-            //this.readFiles(); //On some slow devices this will need a kick
+            setTimeout(function () {
+                _this.readFiles(); //On some slow devices this will need a kick
+            }, 1000);
         });
     };
     HomePage.prototype.createFileAndWrite = function (text, filename) {
