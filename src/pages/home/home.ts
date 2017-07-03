@@ -34,6 +34,7 @@ export class HomePage {
   save:string;
   delete:string;
   addnotemsg:string;
+  modify:string;
 
   constructor(public navCtrl: NavController, public alertCtrl: AlertController, private file: File, public actionSheetCtrl: ActionSheetController, public modalCtrl: ModalController, private storage: Storage) {
     //Initial Setup for DB
@@ -53,7 +54,7 @@ export class HomePage {
 
   presentActionSheet(item: string) {
    let actionSheet = this.actionSheetCtrl.create({
-     title: 'Modify your note',
+     title: this.modify,
      buttons: [
        {
          icon: "trash",
@@ -185,6 +186,8 @@ createFileAndWrite(text: string, filename: string) {
             this.titel = "Title";
             this.cancel = "Cancel";
             this.save = "Save";
+            this.delete = "Delete";
+            this.modify = "Modify your note";
           break;
           case "de":
             console.log("[INFO] Home loading lang: >de<");
@@ -195,6 +198,8 @@ createFileAndWrite(text: string, filename: string) {
             this.titel = "Titel";
             this.cancel = "Abbrechen";
             this.save = "Speichern";
+            this.delete = "Löschen";
+            this.modify = "Bearbeiten Sie Ihre Notizen";
           break;
           default:
             console.log("[FAIL] Micro$oft be like: Something happend.. (Maybe the Promise was not send, slow device ?)");
