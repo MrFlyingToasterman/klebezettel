@@ -24,6 +24,7 @@ export class HomePage {
   //Global Varz
   items = [];
   welcomemsg_toogler:boolean;
+  no_notes:string;
   //Lang Varz
   lang:string;
   welcomemsg:string;
@@ -48,7 +49,11 @@ export class HomePage {
         storage.set("welcomemsg_toogler", "true");
       }
     });
-    this.langInit()
+    //Waiting for Promise | Hopefully this helps to avoid the InitialStart Crash
+    setTimeout(() => {
+      this.langInit()
+    }, 1000);
+
     this.readFiles();
   }
 
@@ -130,13 +135,16 @@ readFiles() {
       console.log("[INFO] Files >" + f.name + "<");
     }
     //Clean Array
-    this.items = [ '', '' ];
+    this.items = [];
     var i2 = 0;
     for (var i = 0; i < files.length; i++) {
       if (files[i].name != "Documents" && files[i].name != "files") {
         this.items[i2] = "" + files[i].name;
         i2++;
       }
+    }
+    if (this.items[0] != null) {
+      this.no_notes = "";
     }
   }).catch((err) => {
     console.log("[WARN] Errors >" + err + "<");
@@ -188,6 +196,7 @@ createFileAndWrite(text: string, filename: string) {
             this.save = "Save";
             this.delete = "Delete";
             this.modify = "Modify your note";
+            this.no_notes = "There are no notes. Create some :)";
           break;
           case "de":
             console.log("[INFO] Home loading lang: >de<");
@@ -200,13 +209,13 @@ createFileAndWrite(text: string, filename: string) {
             this.save = "Speichern";
             this.delete = "Löschen";
             this.modify = "Bearbeiten Sie Ihre Notizen";
+            this.no_notes = "Hier sind noch keine Notizen, erstell doch welche :)";
           break;
           default:
             console.log("[FAIL] Micro$oft be like: Something happend.. (Maybe the Promise was not send, slow device ?)");
           break;
         }
         console.log("[INFO] Activate welcomemsg >" + this.welcomemsg_toogler + "<");
-        console.log("[" + this.welcomemsg_toogler + "]");
         if (this.welcomemsg_toogler != true) {
           this.welcomemsg = "";
           console.log("[INFO] Reset Welcome MSG");
