@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar color="dark">
-    <ion-title>Notes</ion-title>
+    <ion-title>{{ header }}</ion-title>
     <ion-buttons end>
       <button ion-button icon-only color="royal" (click)="addNote()">
         <ion-icon name="md-add"></ion-icon>
@@ -10,7 +10,7 @@
 </ion-header>
 
 <ion-content padding>
-  <h2>Welcome to Klebezettel!</h2>
+  <h2>{{ welcomemsg }}</h2>
     <ion-list>
     <button ion-item *ngFor="let item of items" (click)="itemSelected({filename: item})" (press)="presentActionSheet(item)" >
       {{ item }}

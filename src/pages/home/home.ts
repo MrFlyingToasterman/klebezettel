@@ -21,7 +21,19 @@ import { Storage } from '@ionic/storage';
 
 export class HomePage {
 
+  //Global Varz
   items = [];
+  welcomemsg_toogler:boolean;
+  //Lang Varz
+  lang:string;
+  welcomemsg:string;
+  header:string;
+  create_note:string;
+  titel:string;
+  cancel:string;
+  save:string;
+  delete:string;
+  addnotemsg:string;
 
   constructor(public navCtrl: NavController, public alertCtrl: AlertController, private file: File, public actionSheetCtrl: ActionSheetController, public modalCtrl: ModalController, private storage: Storage) {
     //Initial Setup for DB
@@ -32,9 +44,10 @@ export class HomePage {
         storage.set("initialsetup", "1");
         storage.set("lang", "en");
         storage.set("fontsize", "20");
+        storage.set("welcomemsg_toogler", "true");
       }
     });
-
+    this.langInit()
     this.readFiles();
   }
 
@@ -43,9 +56,9 @@ export class HomePage {
      title: 'Modify your note',
      buttons: [
        {
-         icon: 'trash',
-         text: 'Delete',
-         role: 'destructive',
+         icon: "trash",
+         text: this.delete,
+         role: "destructive",
          handler: () => {
            console.log("[WARN] Destructive clicked for: >" + item + "< ");
            this.file.removeFile(this.file.dataDirectory, item);
@@ -54,7 +67,7 @@ export class HomePage {
          }
        },{
          icon: 'close',
-         text: 'Cancel',
+         text: this.cancel,
          role: 'cancel',
          handler: () => {
            console.log('[INFO] Cancel clicked');
@@ -67,24 +80,24 @@ export class HomePage {
 
   addNote() {
     let prompt = this.alertCtrl.create({
-      title: 'Create note',
-      message: "Enter a name for the new note",
+      title: this.create_note,
+      message: this.addnotemsg,
       inputs: [
         {
-          name: 'title',
-          placeholder: 'Title',
-          id: 'inputField0'
+          name: "title",
+          placeholder: this.titel,
+          id: "inputField0"
         },
       ],
       buttons: [
         {
-          text: 'Cancel',
+          text: this.cancel,
           handler: data => {
-            console.log('[INFO] Cancel clicked');
+            console.log("[INFO] Cancel clicked");
           }
         },
         {
-          text: 'Save',
+          text: this.save,
           handler: data => {
             console.log("[INFO] Saved clicked >" + data.title + "<");
             this.file.createFile(this.file.dataDirectory, data.title + ".txt", false);
@@ -100,7 +113,6 @@ export class HomePage {
 
 //Print selected item and run Modal Popup
 itemSelected(item: string) {
-    //console.log("[INFO] Selected Item >" + item + "<");
     let modal = this.modalCtrl.create(ModalContentPage, item);
     modal.present().catch((err) => {
       console.log("[WARN] " + err);
@@ -151,9 +163,52 @@ createFileAndWrite(text: string, filename: string) {
         this.file.writeExistingFile(this.file.dataDirectory, filename, text)
     }
 
-    someEventFunc() {
-      // This is an example usage of the above functions
-      this.createFileAndWrite("Hello World - someEventFunc was called", "Testfile.txt");
+    langInit() {
+      this.storage.get("lang").then((val) => {
+        this.lang = val;
+        console.log("[INFO] DB loaded lang");
+      });
+      this.storage.get("welcomemsg_toogler").then((val) => {
+        this.welcomemsg_toogler = val;
+        console.log("[INFO] DB loaded welcomemsg_toogler");
+      });
+      //Wait for Promise
+      setTimeout(() => {
+        console.log("[INFO] Starting langSetup for >" + this.lang + "<");
+        switch(this.lang) {
+          case "en":
+            console.log("[INFO] Home loading lang: >en<");
+            this.welcomemsg = "Welcome to Klebezettel!";
+            this.header = "Notes";
+            this.addnotemsg = "Enter a name for the new note";
+            this.create_note = "Create note";
+            this.titel = "Title";
+            this.cancel = "Cancel";
+            this.save = "Save";
+          break;
+          case "de":
+            console.log("[INFO] Home loading lang: >de<");
+            this.welcomemsg = "Willkommen zu Klebezettel!";
+            this.header = "Notizen";
+            this.addnotemsg = "Tragen Sie einen Namen für die neue Notiz ein";
+            this.create_note = "Neue Notiz erstellen";
+            this.titel = "Titel";
+            this.cancel = "Abbrechen";
+            this.save = "Speichern";
+          break;
+          default:
+            console.log("[FAIL] Micro$oft be like: Something happend.. (Maybe the Promise was not send, slow device ?)");
+          break;
+        }
+        console.log("[INFO] Activate welcomemsg >" + this.welcomemsg_toogler + "<");
+        console.log("[" + this.welcomemsg_toogler + "]");
+        if (this.welcomemsg_toogler != true) {
+          this.welcomemsg = "";
+          console.log("[INFO] Reset Welcome MSG");
+        }
+      }, 1000);
+
+
     }
 
 
