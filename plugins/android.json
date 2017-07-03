@@ -27,6 +27,9 @@
         },
         "cordova-plugin-file": {
             "PACKAGE_NAME": "io.ionic.starter"
+        },
+        "cordova-sqlite-storage": {
+            "PACKAGE_NAME": "dmusiolik.klebezettel.com"
         }
     },
     "dependent_plugins": {

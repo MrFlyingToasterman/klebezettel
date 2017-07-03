@@ -35,6 +35,10 @@
                         {
                             "xml": "<allow-navigation href=\"cdvfile:*\" />",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"SQLitePlugin\"><param name=\"android-package\" value=\"io.sqlc.SQLitePlugin\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -75,6 +79,9 @@
         },
         "cordova-plugin-file": {
             "PACKAGE_NAME": "io.ionic.starter"
+        },
+        "cordova-sqlite-storage": {
+            "PACKAGE_NAME": "dmusiolik.klebezettel.com"
         }
     },
     "dependent_plugins": {},
@@ -284,6 +291,14 @@
                 "cordova"
             ],
             "runs": true
+        },
+        {
+            "id": "cordova-sqlite-storage.SQLitePlugin",
+            "file": "plugins/cordova-sqlite-storage/www/SQLitePlugin.js",
+            "pluginId": "cordova-sqlite-storage",
+            "clobbers": [
+                "SQLitePlugin"
+            ]
         }
     ],
     "plugin_metadata": {
@@ -294,6 +309,7 @@
         "cordova-plugin-whitelist": "1.3.1",
         "ionic-plugin-keyboard": "2.2.1",
         "cordova-plugin-compat": "1.1.0",
-        "cordova-plugin-file": "4.3.3"
+        "cordova-plugin-file": "4.3.3",
+        "cordova-sqlite-storage": "2.0.4"
     }
 }

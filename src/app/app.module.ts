@@ -13,6 +13,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { File } from '@ionic-native/file';
+import { IonicStorageModule } from '@ionic/storage';
 
 @NgModule({
   declarations: [

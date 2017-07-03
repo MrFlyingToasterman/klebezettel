@@ -12,7 +12,7 @@ lang:string = "en";
 fontsize = 20;
 
   constructor(public navCtrl: NavController) {
-
+    
   }
 
 }
