@@ -24,17 +24,34 @@ import { Storage } from '@ionic/storage';
 })
 export class ModalContentPage {
 
+  //Global varz
+  lang:string;
   item: string = "";
   inputValue:string;
   value: string = "";
   fontsize:string = "";
+  //Lang Varz
+  savedmsg:string;
+  editnote:string;
+  placeholder:string;
 
   constructor(public navCtrl: NavController, public params: NavParams, public viewCtrl: ViewController, private file: File, public toastCtrl: ToastController, private storage: Storage) {
+
+    //Read DB and get lang
+    this.storage.get("lang").then((val) => {
+      this.lang = val;
+      console.log("[INFO] DB loaded lang");
+    });
+
     //Read DB and get fontsize
     storage.get("fontsize").then((val) => {
       this.fontsize = val;
       console.log("[INFO] DB loaded fontsize");
     });
+
+    //Loading Lang
+    this.langInit();
+
     this.item = this.params.get("filename");
     console.log("[INFO] Opening File: >" + this.item + "<");
     //Read Text from File
@@ -54,10 +71,35 @@ export class ModalContentPage {
 
   presentToast() {
     let toast = this.toastCtrl.create({
-      message: 'Saved note',
+      message: this.savedmsg,
       duration: 1000
     });
     toast.present();
+  }
+
+  langInit() {
+    //Wait for Promise
+    setTimeout(() => {
+
+      console.log("[INFO] Starting langSetup for >" + this.lang + "<");
+      switch(this.lang) {
+        case "en":
+          console.log("[INFO] Settings loading lang: >en<");
+          this.savedmsg = "Saved note";
+          this.editnote = "Edit Note:";
+          this.placeholder = "Enter your thoughts";
+        break;
+        case "de":
+          console.log("[INFO] Settings loading lang: >de<");
+          this.savedmsg = "Notiz gespeichert";
+          this.editnote = "Bearbeite Notiz:";
+          this.placeholder = "Halte deine Gedanken fest";
+        break;
+        default:
+          console.log("[FAIL] Micro$oft be like: Something happend.. (Maybe the Promise was not send, slow device ?)");
+        break;
+      }
+    }, 1000);
   }
 
 }
