@@ -3,6 +3,8 @@ import { NavController } from 'ionic-angular';
 
 //Import für SQL
 import { Storage } from '@ionic/storage';
+//Import für Event Handeling über Broadcast
+import { Events } from 'ionic-angular';
 
 @Component({
   selector: 'page-contact',
@@ -16,8 +18,12 @@ export class ContactPage {
   header:string;
   source:string;
 
-  constructor(public navCtrl: NavController, private storage: Storage) {
+  constructor(public navCtrl: NavController, private storage: Storage, public events: Events) {
     this.langInit();
+    events.subscribe('shouldReloadData', () => {
+      //Waiting for ReloadEvent
+      this.navCtrl.setRoot(this.navCtrl.getActive().component);
+    });
   }
 
   langInit() {

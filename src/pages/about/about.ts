@@ -5,6 +5,8 @@ import { NavController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 //Import für Toast
 import { ToastController } from 'ionic-angular';
+//Import für Event Handeling über Broadcast
+import { Events } from 'ionic-angular';
 
 @Component({
   selector: 'page-about',
@@ -16,6 +18,7 @@ export class AboutPage {
 lang:string;
 fontsize:string;
 welcomemsg_toogler:string;
+save_hint:string;
 //Lang Varz
 reminder:string;
 wrotedata:string;
@@ -24,7 +27,7 @@ fontsite_text:string;
 lang_text:string;
 welcomemsg_toogle:string;
 
-  constructor(public navCtrl: NavController, private storage: Storage, public toastCtrl: ToastController) {
+  constructor(public navCtrl: NavController, private storage: Storage, public toastCtrl: ToastController, public events: Events) {
     //Read DB and get lang
     storage.get("lang").then((val) => {
       this.lang = val;
@@ -39,6 +42,12 @@ welcomemsg_toogle:string;
       console.log("[INFO] DB loaded fontsize");
     });
 
+    //Read DB and get save_hint
+    storage.get("save_hint").then((val) => {
+      this.save_hint = val;
+      console.log("[INFO] DB loaded savehint");
+    });
+
     //Read DB and get fontsize
     storage.get("welcomemsg_toogler").then((val) => {
       this.welcomemsg_toogler = val;
@@ -46,10 +55,13 @@ welcomemsg_toogle:string;
     });
 
     //Waiting for Promise
-    setTimeout(() => {
-      //Reminder for saving
-      this.toastSTRG(this.reminder, "top");
-    }, 2000);
+    if(this.save_hint == "0") {
+      setTimeout(() => {
+        //Reminder for saving
+        this.toastSTRG(this.reminder, "top");
+      }, 2000);
+      storage.set("save_hint", "1");
+    }
   }
 
   saveSettings() {
@@ -58,6 +70,9 @@ welcomemsg_toogle:string;
     this.storage.set("welcomemsg_toogler", this.welcomemsg_toogler);
     console.log("[INFO] Wrote new data to DB");
     this.toastSTRG(this.wrotedata, "top");
+    //Refresh - Help me navCtrl, you're my only hope
+    this.navCtrl.setRoot(this.navCtrl.getActive().component);
+    this.events.publish("shouldReloadData");
   }
 
   toastSTRG(msg:string, position:string) {

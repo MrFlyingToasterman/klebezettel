@@ -13,6 +13,8 @@ import { ModalController } from 'ionic-angular';
 import { ModalContentPage } from "../modal-content/modal-content"
 //Import für SQL
 import { Storage } from '@ionic/storage';
+//Import für Event Handeling über Broadcast
+import { Events } from 'ionic-angular';
 
 @Component({
   selector: 'page-home',
@@ -24,7 +26,6 @@ export class HomePage {
   //Global Varz
   items = [];
   welcomemsg_toogler:boolean;
-  no_notes:string;
   //Lang Varz
   lang:string;
   welcomemsg:string;
@@ -37,7 +38,7 @@ export class HomePage {
   addnotemsg:string;
   modify:string;
 
-  constructor(public navCtrl: NavController, public alertCtrl: AlertController, private file: File, public actionSheetCtrl: ActionSheetController, public modalCtrl: ModalController, private storage: Storage) {
+  constructor(public navCtrl: NavController, public alertCtrl: AlertController, private file: File, public actionSheetCtrl: ActionSheetController, public modalCtrl: ModalController, private storage: Storage, public events: Events) {
     //Initial Setup for DB
     storage.get("initialsetup").then((val) => {
       if (val == null) {
@@ -47,14 +48,18 @@ export class HomePage {
         storage.set("lang", "en");
         storage.set("fontsize", "20");
         storage.set("welcomemsg_toogler", "true");
+        storage.set("save_hint", "0");
       }
     });
     //Waiting for Promise | Hopefully this helps to avoid the InitialStart Crash
     setTimeout(() => {
       this.langInit()
-    }, 1000);
-
+    }, 900);
     this.readFiles();
+    events.subscribe('shouldReloadData', () => {
+      //Waiting for ReloadEvent
+      this.navCtrl.setRoot(this.navCtrl.getActive().component);
+    });
   }
 
   presentActionSheet(item: string) {
@@ -129,22 +134,19 @@ itemSelected(item: string) {
 
 readFiles() {
   console.log("[INFO] Starting refresh");
-  this.file.listDir(this.file.dataDirectory, "").then(
-  (files) => {
+  this.file.listDir(this.file.dataDirectory, "").then( (files) => {
     for (let f of files) {
       console.log("[INFO] Files >" + f.name + "<");
     }
     //Clean Array
     this.items = [];
+    this.items = [null];
     var i2 = 0;
     for (var i = 0; i < files.length; i++) {
       if (files[i].name != "Documents" && files[i].name != "files") {
         this.items[i2] = "" + files[i].name;
         i2++;
       }
-    }
-    if (this.items[0] != null) {
-      this.no_notes = "";
     }
   }).catch((err) => {
     console.log("[WARN] Errors >" + err + "<");
@@ -196,7 +198,6 @@ createFileAndWrite(text: string, filename: string) {
             this.save = "Save";
             this.delete = "Delete";
             this.modify = "Modify your note";
-            this.no_notes = "There are no notes. Create some :)";
           break;
           case "de":
             console.log("[INFO] Home loading lang: >de<");
@@ -209,7 +210,6 @@ createFileAndWrite(text: string, filename: string) {
             this.save = "Speichern";
             this.delete = "Löschen";
             this.modify = "Bearbeiten Sie Ihre Notizen";
-            this.no_notes = "Hier sind noch keine Notizen, erstell doch welche :)";
           break;
           default:
             console.log("[FAIL] Micro$oft be like: Something happend.. (Maybe the Promise was not send, slow device ?)");
@@ -223,6 +223,10 @@ createFileAndWrite(text: string, filename: string) {
       }, 1000);
 
 
+    }
+
+    refreshMe() {
+      this.navCtrl.setRoot(this.navCtrl.getActive().component);
     }
 
 
