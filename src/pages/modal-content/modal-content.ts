@@ -37,6 +37,7 @@ export class ModalContentPage {
   fontcolor:string = "";
   bgcolor:string = "";
   bbe:boolean = true;
+  autosave:boolean;
   //Lang Varz
   savedmsg:string;
   placeholder:string;
@@ -78,6 +79,12 @@ export class ModalContentPage {
       console.log("[INFO] DB loaded bgcolor");
     });
 
+    //Read DB and get autosave
+    storage.get("autosave").then((val) => {
+      this.autosave = val;
+      console.log("[INFO] DB loaded autosave");
+    });
+
     //Loading Lang
     this.langInit();
 
@@ -98,6 +105,11 @@ export class ModalContentPage {
   }
 
   showConfirm() {
+    if(this.autosave == true) {
+      console.log("[INFO] Autosave = true!");
+      this.bbe = false;
+      this.dismiss();
+    }
     if(this.value == null || this.value == "") {
       console.log("[WARN] Nothing to write");
       this.viewCtrl.dismiss();
@@ -135,6 +147,12 @@ export class ModalContentPage {
       console.log("[INFO] Content to save: >" + this.inputValue + "<");
       this.file.writeExistingFile(this.file.dataDirectory, this.item, this.inputValue);
       this.presentToast();
+      //Catch BackBTN Event
+      this.plt.ready().then( ()=> {
+        this.plt.registerBackButtonAction( ()=> {
+          this.freeBBE(); //This is pretty useless. See it as kinda reset
+        })
+      });​
       this.viewCtrl.dismiss();
   }
 

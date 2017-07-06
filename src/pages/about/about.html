@@ -58,4 +58,8 @@
             <ion-option value="#003B6F">{{ tardis }}</ion-option>
           </ion-select>
         </ion-item>
+        <ion-item>
+          <ion-label>{{ autosave_text }}</ion-label>
+          <ion-toggle [(ngModel)]="autosave" checked="{{ autosave }}"></ion-toggle>
+        </ion-item>
 </ion-content>

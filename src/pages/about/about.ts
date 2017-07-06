@@ -21,6 +21,7 @@ welcomemsg_toogler:string;
 save_hint:string;
 font_color:string;
 bg_color:string;
+autosave:string;
 //Lang Varz
 reminder:string;
 wrotedata:string;
@@ -38,6 +39,7 @@ orange:string;
 white:string;
 green:string;
 tardis:string;
+autosave_text:string;
 
   constructor(public navCtrl: NavController, private storage: Storage, public toastCtrl: ToastController, public events: Events) {
 
@@ -75,10 +77,16 @@ tardis:string;
       console.log("[INFO] DB loaded savehint");
     });
 
-    //Read DB and get fontsize
+    //Read DB and get welcomemsg_toogler
     storage.get("welcomemsg_toogler").then((val) => {
       this.welcomemsg_toogler = val;
       console.log("[INFO] DB loaded welcomemsg_toogler");
+    });
+
+    //Read DB and get autosave
+    storage.get("autosave").then((val) => {
+      this.autosave = val;
+      console.log("[INFO] DB loaded autosave");
     });
 
     //Waiting for Promise
@@ -97,6 +105,7 @@ tardis:string;
     this.storage.set("welcomemsg_toogler", this.welcomemsg_toogler);
     this.storage.set("fontcolor", this.font_color);
     this.storage.set("bgcolor", this.bg_color);
+    this.storage.set("autosave", this.autosave);
     console.log("[INFO] Wrote new data to DB");
     this.toastSTRG(this.wrotedata, "top");
     //Refresh - Help me navCtrl, you're my only hope
@@ -136,6 +145,7 @@ tardis:string;
           this.white = "White";
           this.green = "Green";
           this.tardis = "Tardis Blue";
+          this.autosave_text = "Enable autosave on BackBtnEvent";
         break;
         case "de":
           console.log("[INFO] Settings loading lang: >de<");
@@ -155,6 +165,7 @@ tardis:string;
           this.white = "Weiß";
           this.green = "Grün";
           this.tardis = "Tardis Blau";
+          this.autosave_text = "Automatisch speichern bei Zurücktastendruck";
         break;
         default:
           console.log("[FAIL] Micro$oft be like: Something happend.. (Maybe the Promise was not send, slow device ?)");
