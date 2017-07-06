@@ -37,6 +37,8 @@ export class HomePage {
   delete:string;
   addnotemsg:string;
   modify:string;
+  rename:string;
+  rename_text:string;
 
   constructor(public navCtrl: NavController, public alertCtrl: AlertController, private file: File, public actionSheetCtrl: ActionSheetController, public modalCtrl: ModalController, private storage: Storage, public events: Events) {
     //Initial Setup for DB
@@ -55,7 +57,7 @@ export class HomePage {
     });
     //Waiting for Promise | Hopefully this helps to avoid the InitialStart Crash
     setTimeout(() => {
-      this.langInit()
+      this.langInit();
     }, 900);
     this.readFiles();
     events.subscribe('shouldReloadData', () => {
@@ -77,6 +79,13 @@ export class HomePage {
            this.file.removeFile(this.file.dataDirectory, item);
            console.log("[WARN] Removed: >" + item + "< ");
            this.readFiles();
+         }
+       },{
+         icon: "md-color-wand",
+         text: this.rename,
+         handler: () => {
+           console.log("[WARN] Rename clicked for: >" + item + "< ");
+           this.renamePrompt(item);
          }
        },{
          icon: 'close',
@@ -122,6 +131,39 @@ export class HomePage {
     prompt.present().then( () => {
       document.getElementById('inputField0').focus();
     });
+  }
+
+  renamePrompt(item:string) {
+    let prompt = this.alertCtrl.create({
+      title: this.rename,
+      message: this.rename_text,
+      inputs: [
+        {
+          name: "title",
+          placeholder: this.titel
+        },
+      ],
+      buttons: [
+        {
+          text: this.cancel,
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: this.rename,
+          handler: data => {
+            console.log("Saved clicked");
+            console.log("[WARN] Rename >" + item + "< to >" + data.title + ".txt<");
+            this.file.moveFile(this.file.dataDirectory, item, this.file.dataDirectory, data.title + ".txt");
+            setTimeout(() => {
+              this.readFiles();
+            }, 900);
+          }
+        }
+      ]
+    });
+    prompt.present();
   }
 
 //Print selected item and run Modal Popup
@@ -200,6 +242,8 @@ createFileAndWrite(text: string, filename: string) {
             this.save = "Save";
             this.delete = "Delete";
             this.modify = "Modify your note";
+            this.rename = "Rename";
+            this.rename_text = "Enter a new name:";
           break;
           case "de":
             console.log("[INFO] Home loading lang: >de<");
@@ -212,6 +256,8 @@ createFileAndWrite(text: string, filename: string) {
             this.save = "Speichern";
             this.delete = "Löschen";
             this.modify = "Bearbeiten Sie Ihre Notizen";
+            this.rename = "Umbenennen";
+            this.rename_text = "Tragen Sie den gewünschten Namen ein:";
           break;
           default:
             console.log("[FAIL] Micro$oft be like: Something happend.. (Maybe the Promise was not send, slow device ?)");
