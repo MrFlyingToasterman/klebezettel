@@ -28,6 +28,7 @@ export class HomePage {
   //Global Varz
   items = [];
   welcomemsg_toogler:boolean;
+  confirmdelete:boolean;
   //Lang Varz
   lang:string;
   welcomemsg:string;
@@ -61,6 +62,7 @@ export class HomePage {
         storage.set("fontcolor", "black");
         storage.set("bgcolor", "white");
         storage.set("autosave", "false");
+        storage.set("confirmdelete", "true");
         storage.set("welcomemsg_toogler", "true");
         storage.set("save_hint", "0");
       }
@@ -195,6 +197,8 @@ itemSelected(item: string) {
 }
 
 showConfirm(item:string) {
+
+  if(this.confirmdelete) {
     let confirm = this.alertCtrl.create({
       title: this.confirm,
       message: this.confirm_msg,
@@ -218,7 +222,13 @@ showConfirm(item:string) {
       ]
     });
     confirm.present();
+  }else {
+    this.file.removeFile(this.file.dataDirectory, item);
+    console.log("[WARN] Removed: >" + item + "< ");
+    this.readFiles();
+    this.toastSTRG(this.file_removed_msg, "top");
   }
+}
 
 readFiles() {
   console.log("[INFO] Starting refresh");
@@ -279,6 +289,11 @@ createFileAndWrite(text: string, filename: string) {
       this.storage.get("welcomemsg_toogler").then((val) => {
         this.welcomemsg_toogler = val;
         console.log("[INFO] DB loaded welcomemsg_toogler");
+      });
+      //Read DB and get confirmdelete
+      this.storage.get("confirmdelete").then((val) => {
+        this.confirmdelete = val;
+        console.log("[INFO] DB loaded confirmdelete");
       });
       //Wait for Promise
       setTimeout(() => {

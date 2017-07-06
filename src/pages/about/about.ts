@@ -40,6 +40,8 @@ white:string;
 green:string;
 tardis:string;
 autosave_text:string;
+confirm_delete_text:string;
+confirmdelete:string;
 
   constructor(public navCtrl: NavController, private storage: Storage, public toastCtrl: ToastController, public events: Events) {
 
@@ -88,7 +90,11 @@ autosave_text:string;
       this.autosave = val;
       console.log("[INFO] DB loaded autosave");
     });
-
+    //Read DB and get confirmdelete
+    storage.get("confirmdelete").then((val) => {
+      this.confirmdelete = val;
+      console.log("[INFO] DB loaded confirmdelete");
+    });
     //Waiting for Promise
     if(this.save_hint == "0") {
       setTimeout(() => {
@@ -106,6 +112,7 @@ autosave_text:string;
     this.storage.set("fontcolor", this.font_color);
     this.storage.set("bgcolor", this.bg_color);
     this.storage.set("autosave", this.autosave);
+    this.storage.set("confirmdelete", this.confirmdelete);
     console.log("[INFO] Wrote new data to DB");
     this.toastSTRG(this.wrotedata, "top");
     //Refresh - Help me navCtrl, you're my only hope
@@ -146,6 +153,7 @@ autosave_text:string;
           this.green = "Green";
           this.tardis = "Tardis Blue";
           this.autosave_text = "Enable autosave on BackBtnEvent";
+          this.confirm_delete_text = "Confirm delete";
         break;
         case "de":
           console.log("[INFO] Settings loading lang: >de<");
@@ -166,6 +174,7 @@ autosave_text:string;
           this.green = "Grün";
           this.tardis = "Tardis Blau";
           this.autosave_text = "Automatisch speichern bei Zurücktastendruck";
+          this.confirm_delete_text = "Löschen bestätigen";
         break;
         default:
           console.log("[FAIL] Micro$oft be like: Something happend.. (Maybe the Promise was not send, slow device ?)");
