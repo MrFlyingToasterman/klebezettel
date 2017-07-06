@@ -39,6 +39,8 @@ export class HomePage {
   modify:string;
   rename:string;
   rename_text:string;
+  copy:string;
+  copy_msg:string;
 
   constructor(public navCtrl: NavController, public alertCtrl: AlertController, private file: File, public actionSheetCtrl: ActionSheetController, public modalCtrl: ModalController, private storage: Storage, public events: Events) {
     //Initial Setup for DB
@@ -86,6 +88,16 @@ export class HomePage {
          handler: () => {
            console.log("[WARN] Rename clicked for: >" + item + "< ");
            this.renamePrompt(item);
+         }
+       },{
+         icon: "md-copy",
+         text: this.copy,
+         handler: () => {
+           console.log("[INFO] copy clicked for: >" + item + "< ");
+           this.file.copyFile(this.file.dataDirectory, item, this.file.dataDirectory, this.copy_msg + item);
+           setTimeout(() => {
+             this.readFiles();
+           }, 900);
          }
        },{
          icon: 'close',
@@ -140,7 +152,8 @@ export class HomePage {
       inputs: [
         {
           name: "title",
-          placeholder: this.titel
+          placeholder: this.titel,
+          id: "inputField1"
         },
       ],
       buttons: [
@@ -164,6 +177,7 @@ export class HomePage {
       ]
     });
     prompt.present();
+    //document.getElementById('inputField1').focus();
   }
 
 //Print selected item and run Modal Popup
@@ -244,6 +258,8 @@ createFileAndWrite(text: string, filename: string) {
             this.modify = "Modify your note";
             this.rename = "Rename";
             this.rename_text = "Enter a new name:";
+            this.copy = "Copy";
+            this.copy_msg = "[COPY] ";
           break;
           case "de":
             console.log("[INFO] Home loading lang: >de<");
@@ -258,6 +274,8 @@ createFileAndWrite(text: string, filename: string) {
             this.modify = "Bearbeiten Sie Ihre Notizen";
             this.rename = "Umbenennen";
             this.rename_text = "Tragen Sie den gewünschten Namen ein:";
+            this.copy = "Duplikat anfertigen";
+            this.copy_msg = "[KOPIE] ";
           break;
           default:
             console.log("[FAIL] Micro$oft be like: Something happend.. (Maybe the Promise was not send, slow device ?)");
