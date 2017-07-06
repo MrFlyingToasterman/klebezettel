@@ -11,6 +11,8 @@ import { ToastController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 //Import für Alert Dialoge
 import { AlertController } from 'ionic-angular';
+//Import für Plattform z.B. um BackBtn Event abzufangen
+import { Platform } from 'ionic-angular';
 
 
 /**
@@ -34,6 +36,7 @@ export class ModalContentPage {
   fontsize:string = "";
   fontcolor:string = "";
   bgcolor:string = "";
+  bbe:boolean = true;
   //Lang Varz
   savedmsg:string;
   placeholder:string;
@@ -42,7 +45,14 @@ export class ModalContentPage {
   agree:string;
   disagree:string;
 
-  constructor(public navCtrl: NavController, public params: NavParams, public viewCtrl: ViewController, private file: File, public toastCtrl: ToastController, private storage: Storage, public alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, public params: NavParams, public viewCtrl: ViewController, private file: File, public toastCtrl: ToastController, private storage: Storage, public alertCtrl: AlertController, public plt: Platform) {
+
+    //Catch BackBTN Event
+    plt.ready().then( ()=> {
+      plt.registerBackButtonAction( ()=> {
+        this.showConfirm();
+      })
+    });​
 
     //Read DB and get lang
     this.storage.get("lang").then((val) => {
@@ -80,41 +90,56 @@ export class ModalContentPage {
 
     document.addEventListener("backbutton", () => {
       console.log("[WARN] BackBtn pushed");
-      this.showConfirm();
+      //console.log("TextboxVal: " + this.inputValue);
+      //this.showConfirm();
       document.removeEventListener("backbutton");
     });
 
   }
 
   showConfirm() {
-   let confirm = this.alertCtrl.create({
-     title: this.confirm,
-     message: this.confirm_msg,
-     buttons: [
-       {
-         text: this.disagree,
-         handler: () => {
-           console.log("Saved changes");
-           this.dismiss();
-         }
-       },
-       {
-         text: this.agree,
-         handler: () => {
-           console.log("Discard changes");
-         }
-       }
-     ]
-   });
-   confirm.present();
- }
+    if(this.value == null || this.value == "") {
+      console.log("[WARN] Nothing to write");
+      this.viewCtrl.dismiss();
+      this.bbe = false;
+    }
+    if(this.bbe) {
+      this.bbe = false;
+      let confirm = this.alertCtrl.create({
+        title: this.confirm,
+        message: this.confirm_msg,
+        buttons: [
+          {
+            text: this.disagree,
+            handler: () => {
+              console.log("Saved changes");
+              this.dismiss();
+            }
+          },
+          {
+            text: this.agree,
+            handler: () => {
+              console.log("Discard changes");
+              this.viewCtrl.dismiss();
+            }
+          }
+        ]
+      });
+      confirm.present();
+    }
+  }
 
   dismiss() {
-    console.log("[INFO] Writing Stuff to >" +  this.item + "<");
-    console.log("[INFO] Content to save: >" + this.inputValue + "<");
-    this.file.writeExistingFile(this.file.dataDirectory, this.item, this.inputValue);
-    this.presentToast();
-    this.viewCtrl.dismiss();
+      console.log("[INFO] Writing Stuff to >" +  this.item + "<");
+      this.inputValue = this.value + "";
+      console.log("[INFO] Content to save: >" + this.inputValue + "<");
+      this.file.writeExistingFile(this.file.dataDirectory, this.item, this.inputValue);
+      this.presentToast();
+      this.viewCtrl.dismiss();
+  }
+
+  freeBBE() {
+    this.bbe = true;
   }
 
   presentToast() {

@@ -9,5 +9,5 @@
   </ion-toolbar>
 </ion-header>
 <ion-content [style.background-color]="bgcolor">
-        <textarea placeholder="{{ placeholder }}" id="thoughtsBox" [(ngModel)]="value" [(ngModel)]="inputValue" [style.font-size.px]="fontsize" [style.color]="fontcolor" [style.background-color]="bgcolor" style="width: 100%; height: 100%; position: relative; bottom: 0px;"></textarea>
+        <textarea placeholder="{{ placeholder }}" id="thoughtsBox" [(ngModel)]="value" [(ngModel)]="inputValue" [style.font-size.px]="fontsize" [style.color]="fontcolor" [style.background-color]="bgcolor" ng-text-change="freeBBE()" style="width: 100%; height: 100%; position: relative; bottom: 0px;"></textarea>
 </ion-content>
