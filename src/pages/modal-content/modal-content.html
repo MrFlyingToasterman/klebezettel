@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>{{ editnote }} {{ item }}</ion-title>
+    <ion-title>{{ item }}</ion-title>
     <ion-buttons start>
       <button ion-button (click)="dismiss()">
         <ion-icon name="md-download"></ion-icon>
@@ -8,6 +8,6 @@
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
-<ion-content>
-        <textarea placeholder="{{ placeholder }}" id="thoughtsBox" [(ngModel)]="value" [(ngModel)]="inputValue" [style.font-size.px]="fontsize" style="width: 100%; height: 100%; position: relative; bottom: 0px;"></textarea>
+<ion-content [style.background-color]="bgcolor">
+        <textarea placeholder="{{ placeholder }}" id="thoughtsBox" [(ngModel)]="value" [(ngModel)]="inputValue" [style.font-size.px]="fontsize" [style.color]="fontcolor" [style.background-color]="bgcolor" style="width: 100%; height: 100%; position: relative; bottom: 0px;"></textarea>
 </ion-content>

@@ -47,6 +47,8 @@ export class HomePage {
         storage.set("initialsetup", "1");
         storage.set("lang", "en");
         storage.set("fontsize", "20");
+        storage.set("fontcolor", "black");
+        storage.set("bgcolor", "white");
         storage.set("welcomemsg_toogler", "true");
         storage.set("save_hint", "0");
       }

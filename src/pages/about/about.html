@@ -32,4 +32,30 @@
       <ion-label>{{ welcomemsg_toogle }}</ion-label>
       <ion-toggle [(ngModel)]="welcomemsg_toogler" checked="{{ welcomemsg_toogler }}"></ion-toggle>
     </ion-item>
+    <ion-item>
+        <ion-label>{{ font_color_text }}</ion-label>
+        <ion-select [(ngModel)]="font_color">
+          <ion-option value="black">{{ black }}</ion-option>
+          <ion-option value="white">{{ white }}</ion-option>
+          <ion-option value="red">{{ red }}</ion-option>
+          <ion-option value="blue">{{ blue }}</ion-option>
+          <ion-option value="yellow">{{ yellow }}</ion-option>
+          <ion-option value="orange">{{ orange }}</ion-option>
+          <ion-option value="green">{{ green }}</ion-option>
+          <ion-option value="#003B6F">{{ tardis }}</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+          <ion-label>{{ bg_color_text }}</ion-label>
+          <ion-select [(ngModel)]="bg_color">
+            <ion-option value="black">{{ black }}</ion-option>
+            <ion-option value="white">{{ white }}</ion-option>
+            <ion-option value="red">{{ red }}</ion-option>
+            <ion-option value="blue">{{ blue }}</ion-option>
+            <ion-option value="yellow">{{ yellow }}</ion-option>
+            <ion-option value="orange">{{ orange }}</ion-option>
+            <ion-option value="green">{{ green }}</ion-option>
+            <ion-option value="#003B6F">{{ tardis }}</ion-option>
+          </ion-select>
+        </ion-item>
 </ion-content>

@@ -30,9 +30,10 @@ export class ModalContentPage {
   inputValue:string;
   value: string = "";
   fontsize:string = "";
+  fontcolor:string = "";
+  bgcolor:string = "";
   //Lang Varz
   savedmsg:string;
-  editnote:string;
   placeholder:string;
 
   constructor(public navCtrl: NavController, public params: NavParams, public viewCtrl: ViewController, private file: File, public toastCtrl: ToastController, private storage: Storage) {
@@ -47,6 +48,18 @@ export class ModalContentPage {
     storage.get("fontsize").then((val) => {
       this.fontsize = val;
       console.log("[INFO] DB loaded fontsize");
+    });
+
+    //Read DB and get fontcolor
+    storage.get("fontcolor").then((val) => {
+      this.fontcolor = val;
+      console.log("[INFO] DB loaded fontcolor");
+    });
+
+    //Read DB and get bgcolor
+    storage.get("bgcolor").then((val) => {
+      this.bgcolor = val;
+      console.log("[INFO] DB loaded bgcolor");
     });
 
     //Loading Lang
@@ -86,14 +99,12 @@ export class ModalContentPage {
         case "en":
           console.log("[INFO] Settings loading lang: >en<");
           this.savedmsg = "Saved note";
-          this.editnote = "Edit Note:";
           this.placeholder = "Enter your thoughts";
         break;
         case "de":
           console.log("[INFO] Settings loading lang: >de<");
           this.savedmsg = "Notiz gespeichert";
-          this.editnote = "Bearbeite Notiz:";
-          this.placeholder = "Halte deine Gedanken fest";
+          this.placeholder = "Halten Sie Ihre Gedanken fest...";
         break;
         default:
           console.log("[FAIL] Micro$oft be like: Something happend.. (Maybe the Promise was not send, slow device ?)");
