@@ -15,6 +15,8 @@ import { ModalContentPage } from "../modal-content/modal-content"
 import { Storage } from '@ionic/storage';
 //Import für Event Handeling über Broadcast
 import { Events } from 'ionic-angular';
+//Import für Toast
+import { ToastController } from 'ionic-angular';
 
 @Component({
   selector: 'page-home',
@@ -41,8 +43,13 @@ export class HomePage {
   rename_text:string;
   copy:string;
   copy_msg:string;
+  confirm:string;
+  confirm_msg:string;
+  agree:string;
+  disagree:string;
+  file_removed_msg:string;
 
-  constructor(public navCtrl: NavController, public alertCtrl: AlertController, private file: File, public actionSheetCtrl: ActionSheetController, public modalCtrl: ModalController, private storage: Storage, public events: Events) {
+  constructor(public navCtrl: NavController, public alertCtrl: AlertController, private file: File, public actionSheetCtrl: ActionSheetController, public modalCtrl: ModalController, private storage: Storage, public events: Events, public toastCtrl: ToastController) {
     //Initial Setup for DB
     storage.get("initialsetup").then((val) => {
       if (val == null) {
@@ -78,9 +85,7 @@ export class HomePage {
          role: "destructive",
          handler: () => {
            console.log("[WARN] Destructive clicked for: >" + item + "< ");
-           this.file.removeFile(this.file.dataDirectory, item);
-           console.log("[WARN] Removed: >" + item + "< ");
-           this.readFiles();
+           this.showConfirm(item);
          }
        },{
          icon: "md-color-wand",
@@ -188,7 +193,31 @@ itemSelected(item: string) {
     });
 }
 
-
+showConfirm(item:string) {
+    let confirm = this.alertCtrl.create({
+      title: this.confirm,
+      message: this.confirm_msg,
+      buttons: [
+        {
+          text: this.disagree,
+          handler: () => {
+            console.log('Disagree clicked');
+          }
+        },
+        {
+          text: this.agree,
+          handler: () => {
+            console.log('Agree clicked');
+            this.file.removeFile(this.file.dataDirectory, item);
+            console.log("[WARN] Removed: >" + item + "< ");
+            this.readFiles();
+            this.toastSTRG(this.file_removed_msg, "top");
+          }
+        }
+      ]
+    });
+    confirm.present();
+  }
 
 readFiles() {
   console.log("[INFO] Starting refresh");
@@ -232,6 +261,15 @@ createFileAndWrite(text: string, filename: string) {
         this.file.writeExistingFile(this.file.dataDirectory, filename, text)
     }
 
+    toastSTRG(msg:string, position:string) {
+      let toast = this.toastCtrl.create({
+        message: msg,
+        position: position,
+        duration: 3000
+      });
+      toast.present();
+    }
+
     langInit() {
       this.storage.get("lang").then((val) => {
         this.lang = val;
@@ -260,6 +298,11 @@ createFileAndWrite(text: string, filename: string) {
             this.rename_text = "Enter a new name:";
             this.copy = "Copy";
             this.copy_msg = "[COPY] ";
+            this.confirm = "Are you sure ?";
+            this.confirm_msg = "After you delete a file, its gone forever!";
+            this.agree = "Agree";
+            this.disagree = "Disagree";
+            this.file_removed_msg = "File removed!";
           break;
           case "de":
             console.log("[INFO] Home loading lang: >de<");
@@ -276,6 +319,11 @@ createFileAndWrite(text: string, filename: string) {
             this.rename_text = "Tragen Sie den gewünschten Namen ein:";
             this.copy = "Duplikat anfertigen";
             this.copy_msg = "[KOPIE] ";
+            this.confirm = "Sind Sie sicher ?";
+            this.confirm_msg = "Nachdem Sie die Datei gelöscht haben ist sie für immer weg!";
+            this.agree = "Legitimieren";
+            this.disagree = "Ablehnen";
+            this.file_removed_msg = "Datei gelöscht!";
           break;
           default:
             console.log("[FAIL] Micro$oft be like: Something happend.. (Maybe the Promise was not send, slow device ?)");
