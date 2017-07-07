@@ -1,0 +1,67 @@
+{
+  "_from": "cordova-safe",
+  "_id": "cordova-safe@2.0.1",
+  "_inBundle": false,
+  "_integrity": "sha1-6Ln9oFWkDG9lIVS0MCO0Uk8kDGs=",
+  "_location": "/cordova-safe",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "cordova-safe",
+    "name": "cordova-safe",
+    "escapedName": "cordova-safe",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/cordova-safe/-/cordova-safe-2.0.1.tgz",
+  "_shasum": "e8b9fda055a40c6f652154b43023b4524f240c6b",
+  "_spec": "cordova-safe",
+  "_where": "/home/dmusiolik/Desktop/Ionic Framework/klebezettel/node_modules",
+  "author": {
+    "name": "Carlos Antonio"
+  },
+  "bugs": {
+    "url": "https://github.com/disusered/cordova-safe/issues"
+  },
+  "bundleDependencies": false,
+  "cordova": {
+    "id": "com.disusered.safe",
+    "platforms": [
+      "android",
+      "ios"
+    ]
+  },
+  "deprecated": false,
+  "description": "Simple file crypto for Cordova.",
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-eslint": "^0.15.0"
+  },
+  "homepage": "https://github.com/disusered/cordova-safe",
+  "keywords": [
+    "cordova",
+    "file",
+    "encrypt",
+    "decrypt",
+    "ecosystem:cordova",
+    "cordova-android",
+    "cordova-ios"
+  ],
+  "license": "MIT",
+  "name": "cordova-safe",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/disusered/cordova-safe.git"
+  },
+  "scripts": {
+    "lint": "gulp lint",
+    "watch": "gulp watch"
+  },
+  "version": "2.0.1"
+}

@@ -15,6 +15,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { File } from '@ionic-native/file';
 import { IonicStorageModule } from '@ionic/storage';
 
+import { FileEncryption } from '@ionic-native/file-encryption';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -42,6 +44,7 @@ import { IonicStorageModule } from '@ionic/storage';
     StatusBar,
     SplashScreen,
     File,
+    FileEncryption,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

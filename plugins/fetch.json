@@ -70,5 +70,13 @@
         },
         "is_top_level": true,
         "variables": {}
+    },
+    "cordova-safe": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-safe"
+        },
+        "is_top_level": true,
+        "variables": {}
     }
 }

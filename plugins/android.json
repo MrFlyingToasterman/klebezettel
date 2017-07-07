@@ -8,33 +8,36 @@
     },
     "installed_plugins": {
         "cordova-plugin-console": {
-            "PACKAGE_NAME": "io.ionic.starter"
+            "PACKAGE_NAME": "dmusiolik.klebezettel.com"
         },
         "cordova-plugin-device": {
-            "PACKAGE_NAME": "io.ionic.starter"
-        },
-        "cordova-plugin-splashscreen": {
-            "PACKAGE_NAME": "io.ionic.starter"
-        },
-        "cordova-plugin-statusbar": {
-            "PACKAGE_NAME": "io.ionic.starter"
-        },
-        "cordova-plugin-whitelist": {
-            "PACKAGE_NAME": "io.ionic.starter"
-        },
-        "ionic-plugin-keyboard": {
-            "PACKAGE_NAME": "io.ionic.starter"
+            "PACKAGE_NAME": "dmusiolik.klebezettel.com"
         },
         "cordova-plugin-file": {
-            "PACKAGE_NAME": "io.ionic.starter"
+            "PACKAGE_NAME": "dmusiolik.klebezettel.com"
+        },
+        "cordova-plugin-splashscreen": {
+            "PACKAGE_NAME": "dmusiolik.klebezettel.com"
+        },
+        "cordova-plugin-statusbar": {
+            "PACKAGE_NAME": "dmusiolik.klebezettel.com"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "dmusiolik.klebezettel.com"
         },
         "cordova-sqlite-storage": {
+            "PACKAGE_NAME": "dmusiolik.klebezettel.com"
+        },
+        "ionic-plugin-keyboard": {
+            "PACKAGE_NAME": "dmusiolik.klebezettel.com"
+        },
+        "cordova-safe": {
             "PACKAGE_NAME": "dmusiolik.klebezettel.com"
         }
     },
     "dependent_plugins": {
         "cordova-plugin-compat": {
-            "PACKAGE_NAME": "io.ionic.starter"
+            "PACKAGE_NAME": "dmusiolik.klebezettel.com"
         }
     }
 }

@@ -17,6 +17,8 @@ import { Storage } from '@ionic/storage';
 import { Events } from 'ionic-angular';
 //Import für Toast
 import { ToastController } from 'ionic-angular';
+//Import für Krypto Kram
+import { FileEncryption } from '@ionic-native/file-encryption';
 
 @Component({
   selector: 'page-home',
@@ -49,8 +51,13 @@ export class HomePage {
   agree:string;
   disagree:string;
   file_removed_msg:string;
+  encrypt:string;
+  encrypt_msg:string;
+  decrypt:string;
+  decrypt_msg:string;
+  password:string;
 
-  constructor(public navCtrl: NavController, public alertCtrl: AlertController, private file: File, public actionSheetCtrl: ActionSheetController, public modalCtrl: ModalController, private storage: Storage, public events: Events, public toastCtrl: ToastController) {
+  constructor(public navCtrl: NavController, public alertCtrl: AlertController, private file: File, public actionSheetCtrl: ActionSheetController, public modalCtrl: ModalController, private storage: Storage, public events: Events, public toastCtrl: ToastController, private fileEncryption: FileEncryption) {
     //Initial Setup for DB
     storage.get("initialsetup").then((val) => {
       if (val == null) {
@@ -108,9 +115,29 @@ export class HomePage {
            }, 900);
          }
        },{
-         icon: 'close',
+         icon: "md-key",
+         text: this.encrypt,
+         handler: () => {
+           console.log("[INFO] Encrypt clicked for: >" + item + "< ");
+           this.encryptPrompt(item);
+           setTimeout(() => {
+             this.readFiles();
+           }, 900);
+         }
+       },{
+         icon: "md-redo",
+         text: this.decrypt,
+         handler: () => {
+           console.log("[INFO] Decrypt clicked for: >" + item + "< ");
+           this.decryptPrompt(item);
+           setTimeout(() => {
+             this.readFiles();
+           }, 900);
+         }
+       },{
+         icon: "close",
          text: this.cancel,
-         role: 'cancel',
+         role: "cancel",
          handler: () => {
            console.log('[INFO] Cancel clicked');
          }
@@ -119,6 +146,64 @@ export class HomePage {
    });
    actionSheet.present();
  }
+
+ encryptPrompt(item:string) {
+    let prompt = this.alertCtrl.create({
+      title: this.encrypt,
+      message: this.encrypt_msg,
+      inputs: [
+        {
+          name: "title",
+          placeholder: this.password
+        },
+      ],
+      buttons: [
+        {
+          text: this.cancel,
+          handler: data => {
+            console.log("[WARN] Cancel clicked");
+          }
+        },
+        {
+          text: this.encrypt,
+          handler: data => {
+            console.log("[INFO] Encrypt clicked");
+            this.fileEncryption.encrypt(this.file.dataDirectory + item, data.title);
+          }
+        }
+      ]
+    });
+    prompt.present();
+  }
+
+  decryptPrompt(item:string) {
+     let prompt = this.alertCtrl.create({
+       title: this.decrypt,
+       message: this.decrypt_msg,
+       inputs: [
+         {
+           name: "title",
+           placeholder: this.password
+         },
+       ],
+       buttons: [
+         {
+           text: this.cancel,
+           handler: data => {
+             console.log("[WARN] Cancel clicked");
+           }
+         },
+         {
+           text: this.encrypt,
+           handler: data => {
+             console.log("[INFO] Decrypt clicked");
+             this.fileEncryption.decrypt(this.file.dataDirectory + item, data.title);
+           }
+         }
+       ]
+     });
+     prompt.present();
+   }
 
   addNote() {
     let prompt = this.alertCtrl.create({
@@ -319,6 +404,11 @@ createFileAndWrite(text: string, filename: string) {
             this.agree = "Agree";
             this.disagree = "Disagree";
             this.file_removed_msg = "File removed!";
+            this.encrypt = "Encrypt";
+            this.encrypt_msg = "Enter a password for encryption:";
+            this.decrypt = "Decrypt";
+            this.decrypt_msg = "Enter your password to decrypt:";
+            this.password = "Password";
           break;
           case "de":
             console.log("[INFO] Home loading lang: >de<");
@@ -340,6 +430,11 @@ createFileAndWrite(text: string, filename: string) {
             this.agree = "Legitimieren";
             this.disagree = "Ablehnen";
             this.file_removed_msg = "Datei gelöscht!";
+            this.encrypt = "Verschlüsseln";
+            this.encrypt_msg = "Geben Sie ein Passwort für die Verschlüsselung ein:";
+            this.decrypt = "Entschlüsseln";
+            this.decrypt_msg = "Geben Sie Ihr Passwort zum entschlüsseln ein:";
+            this.password = "Passwort";
           break;
           default:
             console.log("[FAIL] Micro$oft be like: Something happend.. (Maybe the Promise was not send, slow device ?)");
