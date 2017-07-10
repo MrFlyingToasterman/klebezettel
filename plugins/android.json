@@ -25,13 +25,13 @@
         "cordova-plugin-whitelist": {
             "PACKAGE_NAME": "dmusiolik.klebezettel.com"
         },
+        "cordova-safe": {
+            "PACKAGE_NAME": "dmusiolik.klebezettel.com"
+        },
         "cordova-sqlite-storage": {
             "PACKAGE_NAME": "dmusiolik.klebezettel.com"
         },
         "ionic-plugin-keyboard": {
-            "PACKAGE_NAME": "dmusiolik.klebezettel.com"
-        },
-        "cordova-safe": {
             "PACKAGE_NAME": "dmusiolik.klebezettel.com"
         }
     },

@@ -114,27 +114,28 @@ export class HomePage {
              this.readFiles();
            }, 900);
          }
-       },{
-         icon: "md-key",
-         text: this.encrypt,
-         handler: () => {
-           console.log("[INFO] Encrypt clicked for: >" + item + "< ");
-           this.encryptPrompt(item);
-           setTimeout(() => {
-             this.readFiles();
-           }, 900);
-         }
-       },{
-         icon: "md-redo",
-         text: this.decrypt,
-         handler: () => {
-           console.log("[INFO] Decrypt clicked for: >" + item + "< ");
-           this.decryptPrompt(item);
-           setTimeout(() => {
-             this.readFiles();
-           }, 900);
-         }
-       },{
+       }//,{
+         //icon: "md-key",
+         //text: this.encrypt,
+         //handler: () => {
+           //console.log("[INFO] Encrypt clicked for: >" + item + "< ");
+           //this.encryptPrompt(item);
+           //setTimeout(() => {
+             //this.readFiles();
+           //}, 900);
+         //}
+       //},{
+         //icon: "md-redo",
+         //text: this.decrypt,
+         //handler: () => {
+           //console.log("[INFO] Decrypt clicked for: >" + item + "< ");
+           //this.decryptPrompt(item);
+           //setTimeout(() => {
+             //this.readFiles();
+           //}, 900);
+         //}
+       //}
+       ,{
          icon: "close",
          text: this.cancel,
          role: "cancel",

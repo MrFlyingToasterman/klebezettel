@@ -198,6 +198,14 @@ module.exports = [
         ]
     },
     {
+        "id": "cordova-safe.safe",
+        "file": "plugins/cordova-safe/www/disusered.safe.js",
+        "pluginId": "cordova-safe",
+        "merges": [
+            "cordova.plugins.disusered"
+        ]
+    },
+    {
         "id": "cordova-sqlite-storage.SQLitePlugin",
         "file": "plugins/cordova-sqlite-storage/www/SQLitePlugin.js",
         "pluginId": "cordova-sqlite-storage",
@@ -213,14 +221,6 @@ module.exports = [
             "cordova.plugins.Keyboard"
         ],
         "runs": true
-    },
-    {
-        "id": "cordova-safe.safe",
-        "file": "plugins/cordova-safe/www/disusered.safe.js",
-        "pluginId": "cordova-safe",
-        "merges": [
-            "cordova.plugins.disusered"
-        ]
     }
 ];
 module.exports.metadata = 
@@ -233,9 +233,9 @@ module.exports.metadata =
     "cordova-plugin-splashscreen": "4.0.3",
     "cordova-plugin-statusbar": "2.2.2",
     "cordova-plugin-whitelist": "1.3.1",
+    "cordova-safe": "2.0.1",
     "cordova-sqlite-storage": "2.0.4",
-    "ionic-plugin-keyboard": "2.2.1",
-    "cordova-safe": "2.0.1"
+    "ionic-plugin-keyboard": "2.2.1"
 };
 // BOTTOM OF METADATA
 });
